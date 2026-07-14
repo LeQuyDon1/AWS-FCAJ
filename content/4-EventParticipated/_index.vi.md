@@ -1,46 +1,49 @@
 ---
 title: "Các events đã tham gia"
-date: 2024-01-01
+date: 2026-07-08
 weight: 4
 chapter: false
 pre: " <b> 4. </b> "
 ---
 
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
+Trong suốt quá trình tham gia cộng đồng **First Cloud AI Journey (FCAJ)**, em đã tích cực tham gia các buổi workshop, meetup và sự kiện chia sẻ kiến thức do cộng đồng tổ chức. Đây là cơ hội để em cập nhật các xu hướng mới về **Cloud Computing, DevOps và Generative AI**, đồng thời học hỏi kinh nghiệm thực tế từ các chuyên gia AWS cũng như các anh chị đang làm việc trong ngành công nghệ.
 
-> Trong phần này, các bạn cần liệt kê và mô tả chi tiết các sự kiện (event) mà mình đã tham gia trong suốt quá trình thực tập hoặc làm việc. 
-> 
-> Mỗi sự kiện nên được trình bày theo định dạng Event 1, Event 2, Event 3…, kèm theo các thông tin:
-> * Tên sự kiện
-> * Thời gian tổ chức
-> * Địa điểm (nếu có)
-> * Vai trò của bạn trong sự kiện (người tham dự, hỗ trợ tổ chức, diễn giả, v.v.)
-> * Mô tả ngắn gọn nội dung và hoạt động chính trong sự kiện
-> * Kết quả hoặc giá trị đạt được (bài học, kỹ năng mới, đóng góp cho nhóm/dự án)
-> * Việc liệt kê này giúp thể hiện rõ sự tham gia thực tế của bạn, cũng như các kỹ năng mềm và kinh nghiệm bạn đã tích lũy qua từng sự kiện.
+Thông qua các sự kiện này, em không chỉ nâng cao kiến thức chuyên môn mà còn cải thiện các kỹ năng mềm như giao tiếp, làm việc nhóm, tư duy giải quyết vấn đề và định hướng phát triển nghề nghiệp. Ngoài ra, em còn có cơ hội giao lưu với các thành viên trong cộng đồng, mở rộng mối quan hệ và tạo thêm động lực để tiếp tục học tập, nghiên cứu các dịch vụ AWS và ứng dụng AI trong thực tế.
 
+Trong thời gian thực tập, em đã tham gia **02 sự kiện tiêu biểu**, được trình bày chi tiết dưới đây.
 
-Trong quá trình thực tập, em đã tham gia 2 events, với mỗi event là một trải nghiệm đáng nhớ với những kiến thức mới, hay và bổ ích, cùng với đó là nhứng món quà và những khoảnh khắc rất tuyệt vời.
+---
 
 ### [Event 1](4.1-Event1/)
-&emsp;**Tên sự kiện:** GenAI-powered App-DB Modernization workshop
 
-&emsp;**Thời gian:** 09:00 ngày 13/08/2025
+**Tên sự kiện:** FCAJ Community Day (First Cloud Journey Community)
 
-&emsp;**Địa điểm:** Tầng 26, tòa nhà Bitexco, số 02 đường Hải Triều, phường Sài Gòn, thành phố Hồ Chí Minh
+**Thời gian:** Tháng 05/2026
 
-&emsp;**Vai trò trong sự kiện:** Người tham dự 
+**Địa điểm:** Văn phòng AWS Việt Nam, Bitexco Financial Tower, TP. Hồ Chí Minh
 
+**Vai trò trong sự kiện:** Người tham dự
 
+**Mô tả ngắn:**
+
+Sự kiện tập trung vào các chủ đề về **Generative AI, Cloud Computing, AWS Architecture, DevOps và định hướng nghề nghiệp**. Các diễn giả đã chia sẻ nhiều kinh nghiệm thực tế về triển khai hệ thống trên AWS, xu hướng AI, kinh nghiệm tham gia Hackathon cũng như những kỹ năng cần thiết để phát triển trong lĩnh vực công nghệ.
+
+---
 
 ### [Event 2](4.2-Event2/)
-&emsp;**Tên sự kiện:** GenAI-powered App-DB Modernization workshop
 
-&emsp;**Thời gian:** 09:00 ngày 13/08/2025
+**Tên sự kiện:** Meetup 30/5 – First Cloud AI Journey Sharing Day
 
-&emsp;**Địa điểm:** Tầng 26, tòa nhà Bitexco, số 02 đường Hải Triều, phường Sài Gòn, thành phố Hồ Chí Minh
+**Thời gian:** 30/05/2026
 
-&emsp;**Vai trò trong sự kiện:** Người tham dự 
+**Địa điểm:** Văn phòng AWS Việt Nam, Bitexco Financial Tower, TP. Hồ Chí Minh
 
+**Vai trò trong sự kiện:** Người tham dự
+
+**Mô tả ngắn:**
+
+Buổi meetup bao gồm nhiều chủ đề bổ ích như **Confidence in Career Development, DevOps Before Disaster, AWS Cloud Quest, Hackathon Experience** và **Overcoming Procrastination**. Chương trình giúp em hiểu rõ hơn về DevOps, lộ trình học AWS, kỹ năng làm việc nhóm, đồng thời nâng cao sự tự tin và tư duy phát triển bản thân trong môi trường công nghệ.
+
+---
+
+Qua hai sự kiện trên, em đã tích lũy được nhiều kiến thức thực tiễn về AWS, DevOps và AI, đồng thời phát triển các kỹ năng mềm cần thiết cho công việc trong tương lai. Những trải nghiệm này cũng giúp em có định hướng rõ ràng hơn trên con đường trở thành một Cloud Engineer và tạo nền tảng để tiếp tục học tập, nghiên cứu cũng như tham gia nhiều hoạt động của cộng đồng AWS trong thời gian tới.

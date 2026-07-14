@@ -121,10 +121,7 @@ The event also provided opportunities to interact with other students and AWS co
 
 ### Event Photos
 
-- Presentation: **Why We Always Need Confidence**
-- Presentation: **The Hidden Iceberg of a Project: DevOps Before Disaster**
-- Sharing Session: **Hackathon Experience**
-- Presentation: **Level Up Your AWS Skills with Cloud Quest and Floci**
-- Presentation: **The Iceberg of Procrastination**
+{{< img src="images/4-EventParticipated/4.1-Event2/event2.jpg" alt="Images event" >}}
+{{< img src="images/4-EventParticipated/4.1-Event2/event2a.png" alt="Images event" >}}
 
 > Overall, the First Cloud AI Journey Sharing Day was an insightful event that strengthened my understanding of cloud technologies, DevOps practices, and personal development. The knowledge and experiences shared by the speakers have motivated me to continue learning AWS, participate in technical communities, and develop both my technical and professional skills.

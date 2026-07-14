@@ -126,8 +126,8 @@ After attending FCAJ Community Day, I gained several valuable lessons:
 
 ## Event Photos
 
-*Insert photos taken during the event here.*
-
+{{< img src="images/4-EventParticipated/4.1-Event1/event1.jpg" alt="Images event" >}}
+{{< img src="images/4-EventParticipated/4.1-Event1/event1a.png" alt="Images event" >}}
 
 > **Conclusion:**  
 > FCAJ Community Day was an inspiring learning experience that provided valuable knowledge about Artificial Intelligence, AWS cloud technologies, and career development. The event broadened my understanding of real-world cloud solutions, strengthened my motivation to continue learning, and helped me better prepare for future opportunities in the IT industry.
