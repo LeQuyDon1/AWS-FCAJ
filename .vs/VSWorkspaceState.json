@@ -2,16 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\content",
-    "\\content\\3-BlogsTranslated",
-    "\\content\\3-BlogsTranslated\\3.1-Blog1",
-    "\\content\\4-EventParticipated",
-    "\\content\\4-EventParticipated\\4.1-Event1",
-    "\\content\\5-Workshop",
-    "\\layouts",
-    "\\layouts\\shortcodes",
-    "\\static",
-    "\\static\\images"
+    "\\content\\1-Worklog",
+    "\\content\\1-Worklog\\1.10-Week10",
+    "\\content\\1-Worklog\\1.11-Week11",
+    "\\content\\1-Worklog\\1.12-Week12",
+    "\\content\\1-Worklog\\1.5-Week5",
+    "\\content\\1-Worklog\\1.7-Week7",
+    "\\content\\1-Worklog\\1.8-Week8",
+    "\\content\\1-Worklog\\1.9-Week9"
   ],
-  "SelectedNode": "\\content\\4-EventParticipated\\4.1-Event1\\_index.vi.md",
+  "SelectedNode": "\\content\\_index.md",
   "PreviewInSolutionExplorer": false
 }

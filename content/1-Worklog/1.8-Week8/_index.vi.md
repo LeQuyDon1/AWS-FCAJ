@@ -1,5 +1,5 @@
 ---
-title: "Báo cáo công việc Tuần 8"
+title: "Nhật ký công việc Tuần 8"
 date: 2026-06-08
 weight: 8
 chapter: false
