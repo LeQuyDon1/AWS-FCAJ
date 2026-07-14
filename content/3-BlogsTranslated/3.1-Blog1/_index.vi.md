@@ -1,126 +1,143 @@
 ---
 title: "Blog 1"
-date: 2024-01-01
+date: 2026-06-01
 weight: 1
 chapter: false
 pre: " <b> 3.1. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
+# Xác thực kép (Dual-token Authentication) cho Nakama Game Server với Amazon Cognito trên AWS
 
-# Bắt đầu với healthcare data lakes: Sử dụng microservices
+Trong các hệ thống game trực tuyến hiện đại, việc quản lý **định danh người chơi (Identity)** và **phiên làm việc trong game (Game Session)** thường được xử lý bởi hai cơ chế khác nhau. Nếu không được thiết kế hợp lý, người chơi có thể phải xác thực nhiều lần hoặc gặp gián đoạn khi chuyển giữa các dịch vụ.
 
-Các data lake có thể giúp các bệnh viện và cơ sở y tế chuyển dữ liệu thành những thông tin chi tiết về doanh nghiệp và duy trì hoạt động kinh doanh liên tục, đồng thời bảo vệ quyền riêng tư của bệnh nhân. **Data lake** là một kho lưu trữ tập trung, được quản lý và bảo mật để lưu trữ tất cả dữ liệu của bạn, cả ở dạng ban đầu và đã xử lý để phân tích. data lake cho phép bạn chia nhỏ các kho chứa dữ liệu và kết hợp các loại phân tích khác nhau để có được thông tin chi tiết và đưa ra các quyết định kinh doanh tốt hơn.
+Để giải quyết vấn đề này, AWS giới thiệu mô hình **Dual-token Authentication**, kết hợp **Amazon Cognito** và **Nakama Game Server** nhằm xây dựng quy trình xác thực an toàn, đồng thời vẫn đảm bảo trải nghiệm đăng nhập liền mạch cho người chơi.
 
-Bài đăng trên blog này là một phần của loạt bài lớn hơn về việc bắt đầu cài đặt data lake dành cho lĩnh vực y tế. Trong bài đăng blog cuối cùng của tôi trong loạt bài, *“Bắt đầu với data lake dành cho lĩnh vực y tế: Đào sâu vào Amazon Cognito”*, tôi tập trung vào các chi tiết cụ thể của việc sử dụng Amazon Cognito và Attribute Based Access Control (ABAC) để xác thực và ủy quyền người dùng trong giải pháp data lake y tế. Trong blog này, tôi trình bày chi tiết cách giải pháp đã phát triển ở cấp độ cơ bản, bao gồm các quyết định thiết kế mà tôi đã đưa ra và các tính năng bổ sung được sử dụng. Bạn có thể truy cập các code samples cho giải pháp tại Git repo này để tham khảo.
+Giải pháp sử dụng **Amazon Cognito** để quản lý danh tính người dùng và **Nakama** để quản lý phiên chơi. Một **Go Runtime Hook** sẽ xác thực JWT do Cognito cấp, sau đó tạo Session Token cho Nakama để người chơi có thể sử dụng trong suốt quá trình kết nối.
 
 ---
 
-## Hướng dẫn kiến trúc
+## Tổng quan kiến trúc
 
-Thay đổi chính kể từ lần trình bày cuối cùng của kiến trúc tổng thể là việc tách dịch vụ đơn lẻ thành một tập hợp các dịch vụ nhỏ để cải thiện khả năng bảo trì và tính linh hoạt. Việc tích hợp một lượng lớn dữ liệu y tế khác nhau thường yêu cầu các trình kết nối chuyên biệt cho từng định dạng; bằng cách giữ chúng được đóng gói riêng biệt với microservices, chúng ta có thể thêm, xóa và sửa đổi từng trình kết nối mà không ảnh hưởng đến những kết nối khác. Các microservices được kết nối rời thông qua tin nhắn publish/subscribe tập trung trong cái mà tôi gọi là “pub/sub hub”.
+Kiến trúc được chia thành nhiều lớp nhằm tách biệt quá trình xác thực, định tuyến lưu lượng và xử lý kết nối thời gian thực.
 
-Giải pháp này đại diện cho những gì tôi sẽ coi là một lần lặp nước rút hợp lý khác từ last post của tôi. Phạm vi vẫn được giới hạn trong việc nhập và phân tích cú pháp đơn giản của các **HL7v2 messages** được định dạng theo **Quy tắc mã hóa 7 (ER7)** thông qua giao diện REST.
+> *Hình 1. Kiến trúc Dual-token Authentication trên AWS.*
 
-**Kiến trúc giải pháp bây giờ như sau:**
+Luồng xử lý hoạt động như sau:
 
-> *Hình 1. Kiến trúc tổng thể; những ô màu thể hiện những dịch vụ riêng biệt.*
-
----
-
-Mặc dù thuật ngữ *microservices* có một số sự mơ hồ cố hữu, một số đặc điểm là chung:  
-- Chúng nhỏ, tự chủ, kết hợp rời rạc  
-- Có thể tái sử dụng, giao tiếp thông qua giao diện được xác định rõ  
-- Chuyên biệt để giải quyết một việc  
-- Thường được triển khai trong **event-driven architecture**
-
-Khi xác định vị trí tạo ranh giới giữa các microservices, cần cân nhắc:  
-- **Nội tại**: công nghệ được sử dụng, hiệu suất, độ tin cậy, khả năng mở rộng  
-- **Bên ngoài**: chức năng phụ thuộc, tần suất thay đổi, khả năng tái sử dụng  
-- **Con người**: quyền sở hữu nhóm, quản lý *cognitive load*
+- Người chơi đăng nhập thông qua **Amazon Cognito** và nhận JWT Access Token.
+- Toàn bộ lưu lượng đi qua **Amazon CloudFront**.
+- **AWS WAF** kiểm tra và lọc các request trước khi chuyển đến backend.
+- Các HTTP API được chuyển đến **Application Load Balancer (ALB)**.
+- Các kết nối **WebSocket** được chuyển trực tiếp đến **Network Load Balancer (NLB)**.
+- Nakama chạy trên **Amazon ECS (AWS Fargate)** xác thực JWT và tạo Session Token.
+- Sau khi xác thực thành công, Nakama sử dụng Session Token để quản lý toàn bộ phiên chơi.
 
 ---
 
-## Lựa chọn công nghệ và phạm vi giao tiếp
+## Các thành phần chính
 
-| Phạm vi giao tiếp                        | Các công nghệ / mô hình cần xem xét                                                        |
-| ---------------------------------------- | ------------------------------------------------------------------------------------------ |
-| Trong một microservice                   | Amazon Simple Queue Service (Amazon SQS), AWS Step Functions                               |
-| Giữa các microservices trong một dịch vụ | AWS CloudFormation cross-stack references, Amazon Simple Notification Service (Amazon SNS) |
-| Giữa các dịch vụ                         | Amazon EventBridge, AWS Cloud Map, Amazon API Gateway                                      |
+### Amazon Cognito
 
----
+Amazon Cognito chịu trách nhiệm quản lý người dùng và xác thực đăng nhập.
 
-## The pub/sub hub
-
-Việc sử dụng kiến trúc **hub-and-spoke** (hay message broker) hoạt động tốt với một số lượng nhỏ các microservices liên quan chặt chẽ.  
-- Mỗi microservice chỉ phụ thuộc vào *hub*  
-- Kết nối giữa các microservice chỉ giới hạn ở nội dung của message được xuất  
-- Giảm số lượng synchronous calls vì pub/sub là *push* không đồng bộ một chiều
-
-Nhược điểm: cần **phối hợp và giám sát** để tránh microservice xử lý nhầm message.
+Sau khi người chơi đăng nhập thành công bằng cơ chế **USER_SRP_AUTH**, Cognito sẽ phát hành **JWT Access Token** mà không cần gửi mật khẩu lên máy chủ.
 
 ---
 
-## Core microservice
+### Go Runtime Hook trên Nakama
 
-Cung cấp dữ liệu nền tảng và lớp truyền thông, gồm:  
-- **Amazon S3** bucket cho dữ liệu  
-- **Amazon DynamoDB** cho danh mục dữ liệu  
-- **AWS Lambda** để ghi message vào data lake và danh mục  
-- **Amazon SNS** topic làm *hub*  
-- **Amazon S3** bucket cho artifacts như mã Lambda
+Go Runtime Hook đóng vai trò cầu nối giữa Cognito và Nakama.
 
-> Chỉ cho phép truy cập ghi gián tiếp vào data lake qua hàm Lambda → đảm bảo nhất quán.
+Chức năng chính:
 
----
+- Kiểm tra tính hợp lệ của JWT.
+- Trích xuất thông tin người dùng (sub claim).
+- Tạo Session Token tương ứng trong Nakama.
+- Chuyển quyền quản lý phiên chơi sang Nakama.
 
-## Front door microservice
-
-- Cung cấp API Gateway để tương tác REST bên ngoài  
-- Xác thực & ủy quyền dựa trên **OIDC** thông qua **Amazon Cognito**  
-- Cơ chế *deduplication* tự quản lý bằng DynamoDB thay vì SNS FIFO vì:
-  1. SNS deduplication TTL chỉ 5 phút
-  2. SNS FIFO yêu cầu SQS FIFO
-  3. Chủ động báo cho sender biết message là bản sao
+Nhờ đó, Cognito chỉ quản lý danh tính, trong khi Nakama tập trung xử lý gameplay và các kết nối thời gian thực.
 
 ---
 
-## Staging ER7 microservice
+### Amazon CloudFront
 
-- Lambda “trigger” đăng ký với pub/sub hub, lọc message theo attribute  
-- Step Functions Express Workflow để chuyển ER7 → JSON  
-- Hai Lambda:
-  1. Sửa format ER7 (newline, carriage return)
-  2. Parsing logic  
-- Kết quả hoặc lỗi được đẩy lại vào pub/sub hub
+CloudFront đóng vai trò là điểm truy cập HTTPS duy nhất của hệ thống.
+
+CloudFront tự động phân loại lưu lượng:
+
+- HTTP API → Application Load Balancer.
+- WebSocket → Network Load Balancer.
+
+Điều này giúp người dùng chỉ cần truy cập một endpoint duy nhất nhưng vẫn đảm bảo mỗi loại kết nối được xử lý đúng cách.
 
 ---
 
-## Tính năng mới trong giải pháp
+### Application Load Balancer (ALB)
 
-### 1. AWS CloudFormation cross-stack references
-Ví dụ *outputs* trong core microservice:
-```yaml
-Outputs:
-  Bucket:
-    Value: !Ref Bucket
-    Export:
-      Name: !Sub ${AWS::StackName}-Bucket
-  ArtifactBucket:
-    Value: !Ref ArtifactBucket
-    Export:
-      Name: !Sub ${AWS::StackName}-ArtifactBucket
-  Topic:
-    Value: !Ref Topic
-    Export:
-      Name: !Sub ${AWS::StackName}-Topic
-  Catalog:
-    Value: !Ref Catalog
-    Export:
-      Name: !Sub ${AWS::StackName}-Catalog
-  CatalogArn:
-    Value: !GetAtt Catalog.Arn
-    Export:
-      Name: !Sub ${AWS::StackName}-CatalogArn
+ALB xử lý toàn bộ các HTTP API của hệ thống.
+
+Vai trò chính:
+
+- Định tuyến request theo URL.
+- Chỉ cho phép các endpoint được cấu hình.
+- Tăng cường bảo mật bằng cách giới hạn các route được phép truy cập.
+
+---
+
+### Network Load Balancer (NLB)
+
+NLB được sử dụng cho các kết nối WebSocket.
+
+Không giống ALB, NLB hoạt động ở tầng TCP nên:
+
+- Không can thiệp vào dữ liệu truyền tải.
+- Giữ nguyên kết nối thời gian thực.
+- Giảm độ trễ trong quá trình chơi game.
+
+Nakama sẽ trực tiếp xác thực Session Token khi người chơi thiết lập kết nối WebSocket.
+
+---
+
+### Amazon ECS trên AWS Fargate
+
+Máy chủ Nakama được triển khai trên Amazon ECS sử dụng AWS Fargate.
+
+Việc sử dụng Fargate giúp:
+
+- Không cần quản lý máy chủ.
+- Dễ dàng mở rộng khi số lượng người chơi tăng.
+- Tự động triển khai và vận hành container.
+
+---
+
+## Tại sao cần cả ALB và NLB?
+
+Trong kiến trúc này, AWS sử dụng đồng thời hai Load Balancer vì mỗi loại phục vụ một mục đích khác nhau.
+
+| Thành phần | Chức năng |
+|------------|-----------|
+| Application Load Balancer | Xử lý HTTP API, kiểm tra route và áp dụng các chính sách truy cập |
+| Network Load Balancer | Xử lý WebSocket bằng TCP passthrough với độ trễ thấp |
+
+CloudFront sẽ tự động chuyển tiếp request đến đúng Load Balancer dựa trên loại kết nối.
+
+---
+
+## Lợi ích của Dual-token Authentication
+
+Giải pháp mang lại nhiều ưu điểm cho các hệ thống game trực tuyến:
+
+- Tách biệt giữa xác thực người dùng và quản lý phiên chơi.
+- Tăng cường bảo mật với hai lớp token độc lập.
+- Hỗ trợ WebSocket ổn định cho game thời gian thực.
+- Dễ dàng mở rộng khi lượng người chơi tăng.
+- Tận dụng các dịch vụ quản lý của AWS để giảm chi phí vận hành.
+
+---
+
+## Kết luận
+
+Dual-token Authentication là một kiến trúc hiện đại giúp kết hợp **Amazon Cognito** và **Nakama** để xây dựng hệ thống xác thực an toàn và linh hoạt cho game online.
+
+Việc sử dụng **Amazon CloudFront**, **AWS WAF**, **Application Load Balancer**, **Network Load Balancer** và **Amazon ECS trên AWS Fargate** giúp hệ thống vừa đảm bảo hiệu năng, vừa tăng cường khả năng bảo mật và mở rộng.
+
+Đối với các nhà phát triển game multiplayer trên AWS, đây là một mô hình đáng tham khảo khi xây dựng hạ tầng xác thực và quản lý phiên chơi trong môi trường sản xuất.

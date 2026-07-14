@@ -1,125 +1,129 @@
 ---
 title: "Event 2"
-date: 2024-01-01
+date: 2026-05-30
 weight: 1
 chapter: false
 pre: " <b> 4.2. </b> "
 ---
 
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
 
-# Bài thu hoạch “GenAI-powered App-DB Modernization workshop”
+# Bài thu hoạch “Meetup 30/5”
 
 ### Mục Đích Của Sự Kiện
 
-- Chia sẻ best practices trong thiết kế ứng dụng hiện đại
-- Giới thiệu phương pháp DDD và event-driven architecture
-- Hướng dẫn lựa chọn compute services phù hợp
-- Giới thiệu công cụ AI hỗ trợ development lifecycle
+- Chia sẻ kinh nghiệm học tập và phát triển kỹ năng trong lĩnh vực Cloud và AI.
+- Giới thiệu các chủ đề về DevOps, AWS Cloud Quest và Hackathon.
+- Nâng cao kỹ năng mềm như sự tự tin, tư duy giải quyết vấn đề và làm việc nhóm.
+- Kết nối cộng đồng First Cloud AI Journey thông qua các buổi chia sẻ thực tế.
 
-### Danh Sách Diễn Giả
+### Danh Sách Các Bài Chia Sẻ
 
-- **Jignesh Shah** - Director, Open Source Databases
-- **Erica Liu** - Sr. GTM Specialist, AppMod
-- **Fabrianne Effendi** - Assc. Specialist SA, Serverless Amazon Web Services
+- **Why We Always Need Confidence**
+  - Nguyễn Thị Quỳnh Như
+- **The Hidden Iceberg of a Project: DevOps Before Disaster**
+  - Trần Minh Quân
+- **Hackathon – "HA! a tons of fun"**
+  - The Ballers Team
+- **Level Up Your AWS Skills with Cloud Quest and Floci**
+  - Huỳnh Thái Linh
+- **The Iceberg of Procrastination**
+  - Diễn giả khách mời
 
 ### Nội Dung Nổi Bật
 
-#### Đưa ra các ảnh hưởng tiêu cực của kiến trúc ứng dụng cũ
+#### Why We Always Need Confidence
 
-- Thời gian release sản phẩm lâu → Mất doanh thu/bỏ lỡ cơ hội
-- Hoạt động kém hiệu quả → Mất năng suất, tốn kém chi phí
-- Không tuân thủ các quy định về bảo mật → Mất an ninh, uy tín
+- Tự tin là yếu tố quan trọng trong học tập và công việc.
+- Cần chủ động phát biểu, đặt câu hỏi và chia sẻ ý tưởng.
+- Xây dựng sự tự tin thông qua việc học hỏi và trải nghiệm thực tế.
 
-#### Chuyển đổi sang kiến trúc ứng dụng mới - Microservice Architecture
+#### The Hidden Iceberg of a Project: DevOps Before Disaster
 
-Chuyển đổi thành hệ thống modular – từng chức năng là một **dịch vụ độc lập** giao tiếp với nhau qua **sự kiện** với 3 trụ cột cốt lõi:
+- Những vấn đề trong dự án thường nằm ở phần "chìm" thay vì phần "nổi".
+- DevOps giúp cải thiện quy trình phát triển và triển khai phần mềm.
+- Vai trò của CI/CD, Automation và Monitoring trong việc giảm rủi ro.
 
-- **Queue Management**: Xử lý tác vụ bất đồng bộ
-- **Caching Strategy:** Tối ưu performance
-- **Message Handling:** Giao tiếp linh hoạt giữa services
+#### Hackathon Experience
 
-#### Domain-Driven Design (DDD)
+- Chia sẻ kinh nghiệm tham gia Hackathon.
+- Làm việc nhóm hiệu quả dưới áp lực thời gian.
+- Học cách phân chia công việc và hoàn thành MVP trong thời gian ngắn.
+- Những bài học thực tế về teamwork và problem solving.
 
-- **Phương pháp 4 bước**: Xác định domain events → sắp xếp timeline → identify actors → xác định bounded contexts
-- **Case study bookstore**: Minh họa cách áp dụng DDD thực tế
-- **Context mapping**: 7 patterns tích hợp bounded contexts
+#### AWS Cloud Quest và Floci
 
-#### Event-Driven Architecture
+- Giới thiệu nền tảng AWS Cloud Quest.
+- Học AWS thông qua mô hình game hóa (Gamification).
+- Hướng dẫn cách luyện tập các dịch vụ AWS từ cơ bản đến nâng cao.
+- Chia sẻ lộ trình học Cloud dành cho sinh viên.
 
-- **3 patterns tích hợp**: Publish/Subscribe, Point-to-point, Streaming
-- **Lợi ích**: Loose coupling, scalability, resilience
-- **So sánh sync vs async**: Hiểu rõ trade-offs (sự đánh đổi)
+#### The Iceberg of Procrastination
 
-#### Compute Evolution
-
-- **Shared Responsibility Model**: Từ EC2 → ECS → Fargate → Lambda
-- **Serverless benefits**: No server management, auto-scaling, pay-for-value
-- **Functions vs Containers**: Criteria lựa chọn phù hợp
-
-#### Amazon Q Developer
-
-- **SDLC automation**: Từ planning đến maintenance
-- **Code transformation**: Java upgrade, .NET modernization
-- **AWS Transform agents**: VMware, Mainframe, .NET migration
+- Phân tích nguyên nhân thực sự của việc trì hoãn.
+- Hiểu rằng "lười biếng" chỉ là biểu hiện bên ngoài.
+- Học cách quản lý thời gian và vượt qua tâm lý trì hoãn.
 
 ### Những Gì Học Được
 
-#### Tư Duy Thiết Kế
+#### Kỹ năng mềm
 
-- **Business-first approach**: Luôn bắt đầu từ business domain, không phải technology
-- **Ubiquitous language**: Importance của common vocabulary giữa business và tech teams
-- **Bounded contexts**: Cách identify và manage complexity trong large systems
+- Tự tin hơn khi trình bày ý tưởng.
+- Biết cách giao tiếp và làm việc nhóm hiệu quả.
+- Học cách quản lý thời gian và giảm trì hoãn.
 
-#### Kiến Trúc Kỹ Thuật
+#### Kỹ năng chuyên môn
 
-- **Event storming technique**: Phương pháp thực tế để mô hình hóa quy trình kinh doanh
-- Sử dụng **Event-driven communication** thay vì synchronous calls
-- **Integration patterns**: Hiểu khi nào dùng sync, async, pub/sub, streaming
-- **Compute spectrum**: Criteria chọn từ VM → containers → serverless
+- Hiểu rõ hơn về DevOps và vòng đời phát triển phần mềm.
+- Biết được lợi ích của CI/CD và Automation.
+- Có thêm định hướng học tập AWS thông qua Cloud Quest.
+- Hiểu giá trị của Hackathon trong việc nâng cao kỹ năng thực tế.
 
-#### Chiến Lược Hiện Đại Hóa
+#### Định hướng phát triển
 
-- **Phased approach**: Không rush, phải có roadmap rõ ràng
-- **7Rs framework**: Nhiều con đường khác nhau tùy thuộc vào đặc điểm của mỗi ứng dụng
-- **ROI measurement**: Cost reduction + business agility
+- Không chỉ tập trung vào kiến thức kỹ thuật mà còn cần phát triển kỹ năng mềm.
+- Chủ động tham gia các hoạt động cộng đồng để mở rộng mối quan hệ.
+- Xây dựng lộ trình học AWS bài bản từ Foundation đến các chứng chỉ chuyên sâu.
 
 ### Ứng Dụng Vào Công Việc
 
-- **Áp dụng DDD** cho project hiện tại: Event storming sessions với business team
-- **Refactor microservices**: Sử dụng bounded contexts để identify service boundaries
-- **Implement event-driven patterns**: Thay thế một số sync calls bằng async messaging
-- **Serverless adoption**: Pilot AWS Lambda cho một số use cases phù hợp
-- **Try Amazon Q Developer**: Integrate vào development workflow để boost productivity
+- Áp dụng quy trình DevOps trong các project cá nhân.
+- Tham gia Hackathon để rèn luyện khả năng giải quyết vấn đề.
+- Sử dụng AWS Cloud Quest để thực hành các dịch vụ AWS.
+- Luyện tập kỹ năng thuyết trình và tăng sự tự tin khi làm việc nhóm.
+- Lập kế hoạch học tập rõ ràng để hạn chế việc trì hoãn.
 
-### Trải nghiệm trong event
+### Trải nghiệm trong sự kiện
 
-Tham gia workshop **“GenAI-powered App-DB Modernization”** là một trải nghiệm rất bổ ích, giúp tôi có cái nhìn toàn diện về cách hiện đại hóa ứng dụng và cơ sở dữ liệu bằng các phương pháp và công cụ hiện đại. Một số trải nghiệm nổi bật:
+Tham gia buổi **First Cloud AI Journey Sharing Day** giúp tôi học được rất nhiều kiến thức cả về kỹ thuật lẫn kỹ năng mềm. Đây không chỉ là một buổi chia sẻ về AWS mà còn là nơi các thành viên trong cộng đồng cùng nhau trao đổi kinh nghiệm học tập, làm dự án và phát triển bản thân.
 
-#### Học hỏi từ các diễn giả có chuyên môn cao
-- Các diễn giả đến từ AWS và các tổ chức công nghệ lớn đã chia sẻ **best practices** trong thiết kế ứng dụng hiện đại.
-- Qua các case study thực tế, tôi hiểu rõ hơn cách áp dụng **Domain-Driven Design (DDD)** và **Event-Driven Architecture** vào các project lớn.
+#### Những điều ấn tượng
 
-#### Trải nghiệm kỹ thuật thực tế
-- Tham gia các phiên trình bày về **event storming** giúp tôi hình dung cách **mô hình hóa quy trình kinh doanh** thành các domain events.
-- Học cách **phân tách microservices** và xác định **bounded contexts** để quản lý sự phức tạp của hệ thống lớn.
-- Hiểu rõ trade-offs giữa **synchronous và asynchronous communication** cũng như các pattern tích hợp như **pub/sub, point-to-point, streaming**.
+- Bài chia sẻ **Why We Always Need Confidence** giúp tôi hiểu rằng sự tự tin là nền tảng để phát triển bản thân và tạo nhiều cơ hội trong học tập cũng như công việc.
+- Chủ đề **DevOps Before Disaster** mang đến góc nhìn mới về việc xây dựng hệ thống, nhấn mạnh rằng những vấn đề lớn thường bắt nguồn từ các quy trình chưa được chuẩn hóa.
+- Phần chia sẻ về **Hackathon** truyền cảm hứng mạnh mẽ về tinh thần làm việc nhóm, sáng tạo và khả năng hoàn thành sản phẩm trong thời gian ngắn.
+- Nội dung **Cloud Quest và Floci** giúp tôi biết thêm một phương pháp học AWS trực quan và thú vị thông qua các thử thách thực hành.
+- Chủ đề **The Iceberg of Procrastination** giúp tôi nhìn nhận đúng nguyên nhân của việc trì hoãn và tìm ra cách cải thiện hiệu quả hơn.
 
-#### Ứng dụng công cụ hiện đại
-- Trực tiếp tìm hiểu về **Amazon Q Developer**, công cụ AI hỗ trợ SDLC từ lập kế hoạch đến maintenance.
-- Học cách **tự động hóa code transformation** và pilot serverless với **AWS Lambda**, từ đó nâng cao năng suất phát triển.
+#### Kết nối cộng đồng
 
-#### Kết nối và trao đổi
-- Workshop tạo cơ hội trao đổi trực tiếp với các chuyên gia, đồng nghiệp và team business, giúp **nâng cao ngôn ngữ chung (ubiquitous language)** giữa business và tech.
-- Qua các ví dụ thực tế, tôi nhận ra tầm quan trọng của **business-first approach**, luôn bắt đầu từ nhu cầu kinh doanh thay vì chỉ tập trung vào công nghệ.
+- Có cơ hội giao lưu với các thành viên của First Cloud AI Journey.
+- Lắng nghe những kinh nghiệm thực tế từ các anh chị đã tham gia nhiều dự án và cuộc thi.
+- Hiểu rõ hơn về lộ trình phát triển trong lĩnh vực Cloud và AI.
 
 #### Bài học rút ra
-- Việc áp dụng DDD và event-driven patterns giúp giảm **coupling**, tăng **scalability** và **resilience** cho hệ thống.
-- Chiến lược hiện đại hóa cần **phased approach** và đo lường **ROI**, không nên vội vàng chuyển đổi toàn bộ hệ thống.
-- Các công cụ AI như Amazon Q Developer có thể **boost productivity** nếu được tích hợp vào workflow phát triển hiện tại.
+
+- Kỹ năng mềm và kỹ năng chuyên môn cần được phát triển song song.
+- DevOps không chỉ là công cụ mà còn là tư duy làm việc.
+- Hackathon là môi trường rất tốt để rèn luyện kỹ năng thực chiến.
+- AWS Cloud Quest là nền tảng hữu ích để học và thực hành các dịch vụ AWS.
+- Muốn phát triển nhanh cần chủ động học hỏi, chia sẻ và tham gia cộng đồng.
 
 #### Một số hình ảnh khi tham gia sự kiện
-* Thêm các hình ảnh của các bạn tại đây
-> Tổng thể, sự kiện không chỉ cung cấp kiến thức kỹ thuật mà còn giúp tôi thay đổi cách tư duy về thiết kế ứng dụng, hiện đại hóa hệ thống và phối hợp hiệu quả hơn giữa các team.
+
+- Hình ảnh bài chia sẻ **Why We Always Need Confidence**.
+- Hình ảnh bài chia sẻ **The Hidden Iceberg of a Project: DevOps Before Disaster**.
+- Hình ảnh phần giới thiệu về **Hackathon**.
+- Hình ảnh bài chia sẻ **Level Up Your AWS Skills with Cloud Quest and Floci**.
+- Hình ảnh bài chia sẻ **The Iceberg of Procrastination**.
+
+> Tổng thể, buổi chia sẻ First Cloud AI Journey mang lại nhiều giá trị thực tiễn, không chỉ giúp tôi mở rộng kiến thức về AWS và DevOps mà còn giúp cải thiện kỹ năng mềm, tư duy làm việc nhóm và định hướng rõ hơn con đường phát triển trong lĩnh vực Cloud Computing và AI.không chỉ cung cấp kiến thức kỹ thuật mà còn giúp tôi thay đổi cách tư duy về thiết kế ứng dụng, hiện đại hóa hệ thống và phối hợp hiệu quả hơn giữa các team.

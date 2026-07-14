@@ -1,59 +1,45 @@
 ---
-title: "Worklog Tuần 3"
-date: 2024-01-01
-weight: 1
+title: "Nhật ký Tuần 3"
+date: 2026-05-04
+weight: 3
 chapter: false
 pre: " <b> 1.3. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
+### Mục tiêu Tuần 3:
 
+* Triển khai các chiến lược giám sát và quan sát toàn diện sử dụng **Amazon CloudWatch** (Chỉ số, Nhật ký, Cảnh báo, Bảng điều khiển).
+* Thiết lập kiến trúc **DNS Lai** để tích hợp mạng tại chỗ với AWS sử dụng **Route 53 Resolver** và Microsoft Active Directory.
+* Đạt được sự thành thạo trong **AWS CLI** để quản lý tài nguyên nâng cao (Cơ bản về Hạ tầng dưới dạng Mã) và tự động hóa trên các dịch vụ Lưu trữ, Mạng, Danh tính và Điện toán.
 
-### Mục tiêu tuần 3:
+### Nhiệm vụ cần thực hiện trong tuần này:
 
-* Kết nối, làm quen với các thành viên trong First Cloud Journey.
-* Hiểu dịch vụ AWS cơ bản, cách dùng console & CLI.
+| Ngày | Nhiệm vụ | Ngày Bắt đầu | Ngày Hoàn thành | Tài liệu Tham khảo |
+| --- | --- | --- | --- | --- |
+| 2 | **Giám sát & Quan sát (CloudWatch)** <br> - Cấu hình **Chỉ số CloudWatch**: Xem, Biểu thức tìm kiếm, Biểu thức toán học <br> - Phân tích nhật ký với **CloudWatch Logs Insights** & Bộ lọc Chỉ số <br> - Thiết lập **Cảnh báo CloudWatch** để giám sát chủ động <br> - Tạo **Bảng điều khiển CloudWatch** thống nhất <br> - **Thực hành:** Trực quan hóa hiệu suất EC2 và thiết lập cảnh báo cho mức sử dụng CPU cao. | 04/05/2026 | 04/05/2026 | https://000008.awsstudygroup.com/ |
+| 3 | **Kết nối Lai & DNS** <br> - Triển khai **Microsoft Active Directory (AD)** <br> - Cấu hình **Cổng Truy cập từ xa (RDGW)** để truy cập an toàn <br> - Thiết lập **DNS Lai** với Route 53 Resolver: <br>&emsp; + Tạo Điểm cuối Đi ra/Đi vào <br>&emsp; + Cấu hình Quy tắc Resolver <br> - Kiểm tra phân giải DNS giữa môi trường mô phỏng tại chỗ và AWS. | 05/05/2026 | 05/05/2026 | https://000010.awsstudygroup.com/ |
+| 4 | **Làm chủ AWS CLI - Phần 1 (Thiết lập & Lưu trữ)** <br> - Cài đặt và Cấu hình **AWS CLI v2** <br> - **Tự động hóa S3:** Quản lý bucket, thực hiện tải lên nhiều phần qua CLI <br> - **Nhắn tin:** Quản lý chủ đề và đăng ký **Amazon SNS** qua CLI <br> - Khám phá các định dạng đầu ra CLI (json, table, text) và bộ lọc. | 06/05/2026 | 06/05/2026 | https://000011.awsstudygroup.com/ <br><br> https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-troubleshooting.html |
+| 5 | **Làm chủ AWS CLI - Phần 2 (Điện toán & Mạng)** <br> - **Bảo mật IAM:** Quản lý người dùng, vai trò và giả định vai trò qua CLI <br>&emsp; + Xử lý mã thông báo MFA với CLI <br> - **Hạ tầng Mạng:** Triển khai VPC, Subnet và Internet Gateway qua CLI <br> - **Điện toán:** Khởi chạy và cấu hình **phiên bản EC2** hoàn toàn qua dòng lệnh. | 07/05/2026 | 07/05/2026 | https://000011.awsstudygroup.com/ <br><br> [Tìm hiểu sâu: Giao diện Dòng lệnh AWS](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html) |
+| 6 | **Làm chủ AWS CLI - Phần 3 (Khắc phục sự cố & Dọn dẹp)** <br> - **Khắc phục sự cố:** Chẩn đoán các lỗi CLI phổ biến (thông tin xác thực, quyền, định dạng) <br> - **Xác thực Nâng cao:** Lưu trữ thông tin xác thực SAML <br> - Thực hiện dọn dẹp tài nguyên đầy đủ bằng các lệnh CLI để đảm bảo không có chi phí kéo dài. | 08/05/2026 | 08/05/2026 | https://000011.awsstudygroup.com/ <br><br> [AWS re:Invent 2019: Giới thiệu về AWS CLI v2](https://www.youtube.com/watch?v=k_l8k2A8F_k) |
 
-### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | - Làm quen với các thành viên FCJ <br> - Đọc và lưu ý các nội quy, quy định tại đơn vị thực tập                                                                                             | 11/08/2025   | 11/08/2025      |
-| 3   | - Tìm hiểu AWS và các loại dịch vụ <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                            | 12/08/2025   | 12/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Tạo AWS Free Tier account <br> - Tìm hiểu AWS Console & AWS CLI <br> - **Thực hành:** <br>&emsp; + Tạo AWS account <br>&emsp; + Cài AWS CLI & cấu hình <br> &emsp; + Cách sử dụng AWS CLI | 13/08/2025   | 13/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Tìm hiểu EC2 cơ bản: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - Các cách remote SSH vào EC2 <br> - Tìm hiểu Elastic IP   <br>                  | 14/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Thực hành:** <br>&emsp; + Tạo EC2 instance <br>&emsp; + Kết nối SSH <br>&emsp; + Gắn EBS volume                                                                                         | 15/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
+# Thành tựu Tuần 3
 
+## Quan sát & Giám sát
+- Triển khai thành công ngăn xếp giám sát sử dụng **Amazon CloudWatch**.
+- Tạo **Bảng điều khiển** tùy chỉnh để trực quan hóa các chỉ số quan trọng (CPU, Bộ nhớ, I/O Đĩa) theo thời gian thực.
+- Cấu hình **Cảnh báo CloudWatch** để kích hoạt thông báo tự động qua SNS khi vượt ngưỡng.
+- Thành thạo **Logs Insights** để truy vấn và phân tích dữ liệu nhật ký ứng dụng một cách hiệu quả.
 
-### Kết quả đạt được tuần 3:
+## Mạng Lai
+- Thiết kế và triển khai giải pháp **DNS Lai** kết nối môi trường tại chỗ và đám mây.
+- Triển khai **Microsoft Active Directory** trên AWS và tích hợp với Route 53.
+- Cấu hình **Điểm cuối Route 53 Resolver** (Đi vào/Đi ra) và **Quy tắc Chuyển tiếp** để phân giải tên miền trên mạng lai.
+- Xác minh kết nối an toàn bằng **Cổng Truy cập từ xa (RDGW)**.
 
-* Hiểu AWS là gì và nắm được các nhóm dịch vụ cơ bản: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
-
-* Đã tạo và cấu hình AWS Free Tier account thành công.
-
-* Làm quen với AWS Management Console và biết cách tìm, truy cập, sử dụng dịch vụ từ giao diện web.
-
-* Cài đặt và cấu hình AWS CLI trên máy tính bao gồm:
-  * Access Key
-  * Secret Key
-  * Region mặc định
-  * ...
-
-* Sử dụng AWS CLI để thực hiện các thao tác cơ bản như:
-
-  * Kiểm tra thông tin tài khoản & cấu hình
-  * Lấy danh sách region
-  * Xem dịch vụ EC2
-  * Tạo và quản lý key pair
-  * Kiểm tra thông tin dịch vụ đang chạy
-  * ...
-
-* Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
-* ...
-
-
+## Quản lý Hạ tầng Nâng cao (CLI)
+- Chuyển đổi từ quản lý dựa trên Console sang các hoạt động **Giao diện Dòng lệnh (CLI)**.
+- Tự động hóa việc cung cấp tài nguyên:
+    - **Lưu trữ:** Tạo bucket S3 và quản lý vòng đời/tải lên đối tượng.
+    - **Bảo mật:** Quản lý người dùng IAM, chính sách và thực hành **Giả định Vai trò** cho quyền truy cập giữa các tài khoản.
+    - **Mạng:** Xây dựng ngăn xếp VPC đầy đủ (VPC, Subnet, IGW, Bảng Định tuyến) bằng các lệnh CLI.
+    - **Điện toán:** Khởi chạy phiên bản EC2 với các tập lệnh user-data qua CLI.
+- Đạt được kỹ năng khắc phục sự cố cho cấu hình CLI, quản lý thông tin xác thực (MFA/SAML) và xử lý lỗi API.

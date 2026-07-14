@@ -1,57 +1,44 @@
 ---
 title: "Week 4 Worklog"
-date: 2024-01-01
-weight: 1
+date: 2026-05-11
+weight: 4
 chapter: false
 pre: " <b> 1.4. </b> "
 ---
-{{% notice warning %}} 
-⚠️ **Note:** The following information is for reference purposes only. Please **do not copy verbatim** for your own report, including this warning.
-{{% /notice %}}
-
-
 ### Week 4 Objectives:
 
-* Connect and get acquainted with members of First Cloud Journey.
-* Understand basic AWS services, how to use the console & CLI.
+* Deploy a production-grade **WordPress** architecture ensuring High Availability (HA) and Scalability using Auto Scaling Groups and CloudFront.
+* Master **Server Migration** workflows by importing/exporting Virtual Machines (VMs) between on-premises environments and AWS.
+* Perform comprehensive **Database Migration** for heterogeneous sources using AWS Schema Conversion Tool (SCT) and Database Migration Service (DMS).
+* Research advanced cloud migration strategies and tools (DataSync, MGN, Outposts).
 
 ### Tasks to be carried out this week:
-| Day | Task                                                                                                                                                                                                   | Start Date | Completion Date | Reference Material                        |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | --------------- | ----------------------------------------- |
-| 2   | - Get acquainted with FCJ members <br> - Read and take note of internship unit rules and regulations                                                                                                   | 08/11/2025 | 08/11/2025      |
-| 3   | - Learn about AWS and its types of services <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                              | 08/12/2025 | 08/12/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Create AWS Free Tier account <br> - Learn about AWS Console & AWS CLI <br> - **Practice:** <br>&emsp; + Create AWS account <br>&emsp; + Install & configure AWS CLI <br> &emsp; + How to use AWS CLI | 08/13/2025 | 08/13/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Learn basic EC2: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - SSH connection methods to EC2 <br> - Learn about Elastic IP   <br>                            | 08/14/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Practice:** <br>&emsp; + Launch an EC2 instance <br>&emsp; + Connect via SSH <br>&emsp; + Attach an EBS volume                                                                                     | 08/15/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
 
+| Day | Task | Start Date | Completion Date | Reference Material |
+| --- | --- | --- | --- | --- |
+| 2 | **WordPress on AWS - Part 1 (Deployment)** <br> - Prepare Infrastructure: VPC, Subnets, Security Groups for Web & DB <br> - Launch **Multi-AZ RDS** for high database availability <br> - Deploy EC2 and install **WordPress** application <br> - Connect WordPress to RDS instance | 11/05/2026 | 11/05/2026 | https://000021.awsstudygroup.com/ |
+| 3 | **WordPress on AWS - Part 2 (Scaling & CDN)** <br> - Create **AMI** from the configured WordPress instance <br> - Setup **Auto Scaling Group (ASG)** with Application Load Balancer <br> - Accelerate content delivery using **Amazon CloudFront** <br> - Perform Database Backup (Snapshot) & Restore operations <br> - Cleanup resources | 12/05/2026 | 12/05/2026 | https://000021.awsstudygroup.com/ |
+| 4 | **Server Migration (VM Import/Export)** <br> - Deploy local Application Server (Simulated On-Prem) <br> - **Import VM to AWS:** Export local VM, upload to S3, and convert to AMI/EC2 <br> - **Export VM from AWS:** Export EC2 instance back to S3 for on-prem use <br> - Manage S3 ACLs and CLI roles for migration tasks | 13/05/2026 | 13/05/2026 | https://000014.awsstudygroup.com/ |
+| 5 | **Database Migration (DMS & SCT)** <br> - Set up Migration Environment: Source (Oracle/SQL Server) & Target (Aurora/RDS) <br> - Use **Schema Conversion Tool (SCT)** to convert database schemas <br> - Configure **AWS DMS**: <br>&emsp; + Create Replication Instance & Endpoints <br>&emsp; + Run Migration Task (Full Load + CDC) <br> - Explore **DMS Serverless** for auto-scaling replication | 14/05/2026 | 14/05/2026 | https://000043.awsstudygroup.com/ |
+| 6 | **Advanced Migration Monitoring & Strategies** <br> - **Monitoring DMS:** Analyze CloudWatch metrics, Table statistics, and Task logs <br> - **Troubleshooting:** Diagnose memory pressure and table errors during migration <br> - **Research:** Explore upcoming migration patterns: <br>&emsp; + AWS Application Migration Service (MGN) <br>&emsp; + AWS DataSync & Migration Hub <br>&emsp; + Container Migration to EKS | 15/05/2026 | 15/05/2026 | https://000043.awsstudygroup.com/ <br><br> _Self-Study on AWS Migration Hub_ |
 
-### Week 4 Achievements:
+# Week 4 Achievements
 
-* Understood what AWS is and mastered the basic service groups: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+## Scalable Web Architecture
+- Successfully deployed a highly available **WordPress** site using **Multi-AZ RDS** and **Auto Scaling Groups**.
+- Configured **Application Load Balancer (ALB)** to distribute traffic dynamically across healthy instances.
+- Optimized global content delivery speeds by integrating **Amazon CloudFront** as a CDN.
+- Implemented disaster recovery procedures using RDS Snapshots and restoration techniques.
 
-* Successfully created and configured an AWS Free Tier account.
+## Server Migration Expertise
+- Gained hands-on experience with **VM Import/Export** methodologies.
+- Successfully migrated a virtual machine from a simulated on-premises environment (VMware) to AWS EC2.
+- Mastered the reverse process of exporting an active AWS EC2 instance back to a portable VM image stored in S3.
+- Configured necessary IAM roles and S3 permissions to facilitate secure image transfer.
 
-* Became familiar with the AWS Management Console and learned how to find, access, and use services via the web interface.
-
-* Installed and configured AWS CLI on the computer, including:
-  * Access Key
-  * Secret Key
-  * Default Region
-  * ...
-
-* Used AWS CLI to perform basic operations such as:
-
-  * Check account & configuration information
-  * Retrieve the list of regions
-  * View EC2 service
-  * Create and manage key pairs
-  * Check information about running services
-  * ...
-
-* Acquired the ability to connect between the web interface and CLI to manage AWS resources in parallel.
-* ...
+## Database Migration & Modernization
+- Executed a heterogeneous database migration (e.g., SQL Server/Oracle to Aurora) using **AWS DMS**.
+- Utilized the **AWS Schema Conversion Tool (SCT)** to automate schema transformation between different database engines.
+- Configured **Continuous Data Replication (CDC)** to keep source and target databases in sync with minimal downtime.
+- Experimented with **DMS Serverless** to handle variable migration workloads automatically.
+- Learned to monitor migration health using CloudWatch and troubleshoot common issues like memory pressure or data type mismatches.

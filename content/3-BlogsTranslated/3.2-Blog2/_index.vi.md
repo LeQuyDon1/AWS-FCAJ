@@ -1,127 +1,100 @@
 ---
 title: "Blog 2"
-date: 2024-01-01
+date: 2026-06-15
 weight: 1
 chapter: false
 pre: " <b> 3.2. </b> "
 ---
 
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
+# Hạn chế truy cập AWS Management Console bằng Sign-in Resource-based Policies và Resource Control Policies (RCPs)
 
-# Bắt đầu với healthcare data lakes: Sử dụng microservices
+Việc bảo vệ quyền truy cập vào môi trường đám mây là một trong những yêu cầu quan trọng đối với mọi doanh nghiệp. Nhiều tổ chức cần đảm bảo rằng người dùng chỉ có thể đăng nhập vào **AWS Management Console** từ các mạng đáng tin cậy như mạng nội bộ, VPN của doanh nghiệp hoặc các Amazon VPC đã được cấu hình trước.
 
-Các data lake có thể giúp các bệnh viện và cơ sở y tế chuyển dữ liệu thành những thông tin chi tiết về doanh nghiệp và duy trì hoạt động kinh doanh liên tục, đồng thời bảo vệ quyền riêng tư của bệnh nhân. **Data lake** là một kho lưu trữ tập trung, được quản lý và bảo mật để lưu trữ tất cả dữ liệu của bạn, cả ở dạng ban đầu và đã xử lý để phân tích. data lake cho phép bạn chia nhỏ các kho chứa dữ liệu và kết hợp các loại phân tích khác nhau để có được thông tin chi tiết và đưa ra các quyết định kinh doanh tốt hơn.
-
-Bài đăng trên blog này là một phần của loạt bài lớn hơn về việc bắt đầu cài đặt data lake dành cho lĩnh vực y tế. Trong bài đăng blog cuối cùng của tôi trong loạt bài, *“Bắt đầu với data lake dành cho lĩnh vực y tế: Đào sâu vào Amazon Cognito”*, tôi tập trung vào các chi tiết cụ thể của việc sử dụng Amazon Cognito và Attribute Based Access Control (ABAC) để xác thực và ủy quyền người dùng trong giải pháp data lake y tế. Trong blog này, tôi trình bày chi tiết cách giải pháp đã phát triển ở cấp độ cơ bản, bao gồm các quyết định thiết kế mà tôi đã đưa ra và các tính năng bổ sung được sử dụng. Bạn có thể truy cập các code samples cho giải pháp tại Git repo này để tham khảo.
+Để đáp ứng nhu cầu này, AWS đã giới thiệu **Sign-in Resource-based Policies** và **Resource Control Policies (RCPs)**. Hai tính năng này giúp kiểm soát quyền đăng nhập ngay từ bước xác thực, đồng thời cho phép quản lý chính sách tập trung trên nhiều tài khoản AWS.
 
 ---
 
-## Hướng dẫn kiến trúc
+## Tổng quan giải pháp
 
-Thay đổi chính kể từ lần trình bày cuối cùng của kiến trúc tổng thể là việc tách dịch vụ đơn lẻ thành một tập hợp các dịch vụ nhỏ để cải thiện khả năng bảo trì và tính linh hoạt. Việc tích hợp một lượng lớn dữ liệu y tế khác nhau thường yêu cầu các trình kết nối chuyên biệt cho từng định dạng; bằng cách giữ chúng được đóng gói riêng biệt với microservices, chúng ta có thể thêm, xóa và sửa đổi từng trình kết nối mà không ảnh hưởng đến những kết nối khác. Các microservices được kết nối rời thông qua tin nhắn publish/subscribe tập trung trong cái mà tôi gọi là “pub/sub hub”.
+Giải pháp cho phép doanh nghiệp thiết lập các chính sách giới hạn nguồn truy cập khi người dùng đăng nhập vào AWS Management Console.
 
-Giải pháp này đại diện cho những gì tôi sẽ coi là một lần lặp nước rút hợp lý khác từ last post của tôi. Phạm vi vẫn được giới hạn trong việc nhập và phân tích cú pháp đơn giản của các **HL7v2 messages** được định dạng theo **Quy tắc mã hóa 7 (ER7)** thông qua giao diện REST.
+Thay vì cho phép truy cập từ bất kỳ vị trí nào, quản trị viên có thể chỉ định các địa chỉ IP, mạng VPN hoặc Amazon VPC được phép sử dụng. Nếu yêu cầu đăng nhập đến từ một mạng không nằm trong danh sách cho phép, AWS sẽ tự động từ chối trước khi người dùng có thể truy cập vào hệ thống.
 
-**Kiến trúc giải pháp bây giờ như sau:**
+Cách tiếp cận này giúp xây dựng một **network perimeter** vững chắc, đồng thời đáp ứng các yêu cầu về bảo mật và tuân thủ.
 
-> *Hình 1. Kiến trúc tổng thể; những ô màu thể hiện những dịch vụ riêng biệt.*
-
----
-
-Mặc dù thuật ngữ *microservices* có một số sự mơ hồ cố hữu, một số đặc điểm là chung:  
-- Chúng nhỏ, tự chủ, kết hợp rời rạc  
-- Có thể tái sử dụng, giao tiếp thông qua giao diện được xác định rõ  
-- Chuyên biệt để giải quyết một việc  
-- Thường được triển khai trong **event-driven architecture**
-
-Khi xác định vị trí tạo ranh giới giữa các microservices, cần cân nhắc:  
-- **Nội tại**: công nghệ được sử dụng, hiệu suất, độ tin cậy, khả năng mở rộng  
-- **Bên ngoài**: chức năng phụ thuộc, tần suất thay đổi, khả năng tái sử dụng  
-- **Con người**: quyền sở hữu nhóm, quản lý *cognitive load*
+> *Hình 1. Kiến trúc kiểm soát đăng nhập AWS Management Console bằng Sign-in Resource-based Policies.*
 
 ---
 
-## Lựa chọn công nghệ và phạm vi giao tiếp
+## Các thành phần chính
 
-| Phạm vi giao tiếp                        | Các công nghệ / mô hình cần xem xét                                                        |
-| ---------------------------------------- | ------------------------------------------------------------------------------------------ |
-| Trong một microservice                   | Amazon Simple Queue Service (Amazon SQS), AWS Step Functions                               |
-| Giữa các microservices trong một dịch vụ | AWS CloudFormation cross-stack references, Amazon Simple Notification Service (Amazon SNS) |
-| Giữa các dịch vụ                         | Amazon EventBridge, AWS Cloud Map, Amazon API Gateway                                      |
+### Sign-in Resource-based Policies
 
----
+Sign-in Resource-based Policies giúp kiểm soát quyền đăng nhập dựa trên các điều kiện được định nghĩa trước.
 
-## The pub/sub hub
+Quản trị viên có thể cấu hình các điều kiện như:
 
-Việc sử dụng kiến trúc **hub-and-spoke** (hay message broker) hoạt động tốt với một số lượng nhỏ các microservices liên quan chặt chẽ.  
-- Mỗi microservice chỉ phụ thuộc vào *hub*  
-- Kết nối giữa các microservice chỉ giới hạn ở nội dung của message được xuất  
-- Giảm số lượng synchronous calls vì pub/sub là *push* không đồng bộ một chiều
+- Địa chỉ IP của mạng nội bộ doanh nghiệp.
+- Mạng VPN của công ty.
+- Amazon VPC hoặc VPC Endpoint.
+- Các tài khoản quản trị được miễn áp dụng chính sách.
 
-Nhược điểm: cần **phối hợp và giám sát** để tránh microservice xử lý nhầm message.
+Nhờ đó, chỉ những yêu cầu đăng nhập đáp ứng đầy đủ điều kiện mới được phép truy cập AWS Management Console.
 
 ---
 
-## Core microservice
+### Resource Control Policies (RCPs)
 
-Cung cấp dữ liệu nền tảng và lớp truyền thông, gồm:  
-- **Amazon S3** bucket cho dữ liệu  
-- **Amazon DynamoDB** cho danh mục dữ liệu  
-- **AWS Lambda** để ghi message vào data lake và danh mục  
-- **Amazon SNS** topic làm *hub*  
-- **Amazon S3** bucket cho artifacts như mã Lambda
+Đối với các tổ chức sử dụng **AWS Organizations**, Resource Control Policies giúp áp dụng cùng một chính sách bảo mật cho nhiều tài khoản AWS.
 
-> Chỉ cho phép truy cập ghi gián tiếp vào data lake qua hàm Lambda → đảm bảo nhất quán.
+Thay vì phải cấu hình riêng lẻ trên từng tài khoản, quản trị viên có thể quản lý tập trung, giúp đảm bảo tính nhất quán và giảm thiểu sai sót trong quá trình vận hành.
 
 ---
 
-## Front door microservice
+### AWS CloudTrail
 
-- Cung cấp API Gateway để tương tác REST bên ngoài  
-- Xác thực & ủy quyền dựa trên **OIDC** thông qua **Amazon Cognito**  
-- Cơ chế *deduplication* tự quản lý bằng DynamoDB thay vì SNS FIFO vì:
-  1. SNS deduplication TTL chỉ 5 phút
-  2. SNS FIFO yêu cầu SQS FIFO
-  3. Chủ động báo cho sender biết message là bản sao
+AWS CloudTrail ghi lại toàn bộ các sự kiện đăng nhập, bao gồm cả những lần đăng nhập thành công và các yêu cầu bị từ chối.
 
----
+Các nhật ký này hỗ trợ doanh nghiệp:
 
-## Staging ER7 microservice
-
-- Lambda “trigger” đăng ký với pub/sub hub, lọc message theo attribute  
-- Step Functions Express Workflow để chuyển ER7 → JSON  
-- Hai Lambda:
-  1. Sửa format ER7 (newline, carriage return)
-  2. Parsing logic  
-- Kết quả hoặc lỗi được đẩy lại vào pub/sub hub
+- Theo dõi hoạt động đăng nhập.
+- Phát hiện các hành vi truy cập bất thường.
+- Phục vụ điều tra sự cố bảo mật.
+- Đáp ứng các yêu cầu kiểm toán và tuân thủ.
 
 ---
 
-## Tính năng mới trong giải pháp
+## Ví dụ sử dụng
 
-### 1. AWS CloudFormation cross-stack references
-Ví dụ *outputs* trong core microservice:
-```yaml
-Outputs:
-  Bucket:
-    Value: !Ref Bucket
-    Export:
-      Name: !Sub ${AWS::StackName}-Bucket
-  ArtifactBucket:
-    Value: !Ref ArtifactBucket
-    Export:
-      Name: !Sub ${AWS::StackName}-ArtifactBucket
-  Topic:
-    Value: !Ref Topic
-    Export:
-      Name: !Sub ${AWS::StackName}-Topic
-  Catalog:
-    Value: !Ref Catalog
-    Export:
-      Name: !Sub ${AWS::StackName}-Catalog
-  CatalogArn:
-    Value: !GetAtt Catalog.Arn
-    Export:
-      Name: !Sub ${AWS::StackName}-CatalogArn
+Giả sử một tổ chức tài chính yêu cầu tăng cường bảo mật cho hệ thống AWS.
+
+Doanh nghiệp đặt ra các yêu cầu như:
+
+- Nhân viên chỉ được đăng nhập từ mạng văn phòng, VPN hoặc Amazon VPC đã được phê duyệt.
+- Các yêu cầu từ Wi-Fi công cộng hoặc mạng cá nhân phải bị từ chối.
+- Một tài khoản quản trị vẫn được phép truy cập trong mọi trường hợp để tránh bị khóa hệ thống.
+- Mọi lần đăng nhập đều phải được ghi nhận để phục vụ kiểm toán.
+
+Với Sign-in Resource-based Policies kết hợp cùng RCPs, các yêu cầu này có thể được triển khai và quản lý một cách hiệu quả.
+
+---
+
+## Lợi ích của giải pháp
+
+Giải pháp mang lại nhiều lợi ích cho doanh nghiệp:
+
+- Chỉ cho phép đăng nhập từ các mạng đáng tin cậy.
+- Giảm nguy cơ truy cập trái phép vào AWS Management Console.
+- Quản lý chính sách tập trung trên nhiều tài khoản AWS.
+- Hỗ trợ kiểm toán và tuân thủ thông qua AWS CloudTrail.
+- Xây dựng ranh giới bảo mật mạng (Network Perimeter) chặt chẽ hơn.
+
+---
+
+## Kết luận
+
+Sign-in Resource-based Policies và Resource Control Policies bổ sung thêm một lớp bảo mật ngay trong quá trình đăng nhập vào AWS Management Console.
+
+Kết hợp với **AWS Organizations** và **AWS CloudTrail**, giải pháp giúp doanh nghiệp kiểm soát nguồn truy cập, quản lý chính sách tập trung và tăng cường khả năng giám sát các hoạt động đăng nhập.
+
+Đối với các tổ chức vận hành nhiều tài khoản AWS, đây là một giải pháp hiệu quả để nâng cao bảo mật, giảm rủi ro truy cập trái phép và đáp ứng các yêu cầu về quản trị cũng như tuân thủ.
