@@ -25,7 +25,7 @@ chapter: false
 
 &emsp; **Thời gian thực tập:** Từ ngày 20/04/2026 đến ngày 10/07/2026
 
-![Ảnh đại diện của bạn](/images/avatar.png)
+{{< img src="images/3-BlogsTranslated/3.1-Blog1/blog3_1.jpg" alt="Kiến trúc tổng quan" >}}
 
 
 

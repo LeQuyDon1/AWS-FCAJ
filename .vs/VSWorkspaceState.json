@@ -2,15 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\content",
-    "\\content\\4-EventParticipated",
-    "\\content\\4-EventParticipated\\4.1-Event1",
-    "\\content\\4-EventParticipated\\4.2-Event2",
+    "\\content\\3-BlogsTranslated",
+    "\\content\\3-BlogsTranslated\\3.1-Blog1",
     "\\content\\5-Workshop",
     "\\layouts",
     "\\layouts\\shortcodes",
     "\\static",
-    "\\static\\images"
+    "\\static\\images",
+    "\\themes\\hugo-theme-learn"
   ],
-  "SelectedNode": "\\content\\4-EventParticipated\\4.2-Event2\\_index.md",
+  "SelectedNode": "\\content\\_index.md",
   "PreviewInSolutionExplorer": false
 }

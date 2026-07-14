@@ -120,7 +120,7 @@ Tham gia buổi **First Cloud AI Journey Sharing Day** giúp tôi học được
 
 #### Một số hình ảnh khi tham gia sự kiện
 
-{{< img src="images/4-EventParticipated/4.1-Event2/event2.jpg" alt="Images event" >}}
-{{< img src="images/4-EventParticipated/4.1-Event2/event2a.png" alt="Images event" >}}
+{{< img src="images/4-EventParticipated/4.2-Event2/event2.jpg" alt="Images event" >}}
+{{< img src="images/4-EventParticipated/4.2-Event2/event2a.png" alt="Images event" >}}
 
 > Tổng thể, buổi chia sẻ First Cloud AI Journey mang lại nhiều giá trị thực tiễn, không chỉ giúp tôi mở rộng kiến thức về AWS và DevOps mà còn giúp cải thiện kỹ năng mềm, tư duy làm việc nhóm và định hướng rõ hơn con đường phát triển trong lĩnh vực Cloud Computing và AI.không chỉ cung cấp kiến thức kỹ thuật mà còn giúp tôi thay đổi cách tư duy về thiết kế ứng dụng, hiện đại hóa hệ thống và phối hợp hiệu quả hơn giữa các team.
