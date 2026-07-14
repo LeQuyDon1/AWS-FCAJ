@@ -4,13 +4,14 @@
     "\\content",
     "\\content\\3-BlogsTranslated",
     "\\content\\3-BlogsTranslated\\3.1-Blog1",
+    "\\content\\4-EventParticipated",
+    "\\content\\4-EventParticipated\\4.1-Event1",
     "\\content\\5-Workshop",
     "\\layouts",
     "\\layouts\\shortcodes",
     "\\static",
-    "\\static\\images",
-    "\\themes\\hugo-theme-learn"
+    "\\static\\images"
   ],
-  "SelectedNode": "\\content\\_index.md",
+  "SelectedNode": "\\content\\4-EventParticipated\\4.1-Event1\\_index.vi.md",
   "PreviewInSolutionExplorer": false
 }
